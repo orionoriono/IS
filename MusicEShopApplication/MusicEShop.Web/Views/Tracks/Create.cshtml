@@ -1,0 +1,54 @@
+﻿@model MusicEShop.Domain.DomainModels.Track
+
+@{
+    ViewData["Title"] = "Create Track";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Create Track</h1>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" class="shadow p-4 rounded bg-light">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Title" class="form-label fw-bold"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter track title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Duration" class="form-label fw-bold"></label>
+                    <input asp-for="Duration" type="text" class="form-control" placeholder="Enter track duration (e.g., 03:45)" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Price" class="form-label fw-bold"></label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="Enter track price" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AlbumId" class="form-label fw-bold">Select Album</label>
+                    <select asp-for="AlbumId" class="form-control" asp-items="ViewBag.AlbumId">
+                        <option disabled selected>Choose an album</option>
+                    </select>
+                    <span asp-validation-for="AlbumId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,38 @@
+﻿@model MusicEShop.Domain.DomainModels.Track
+
+@{
+    ViewData["Title"] = "Delete Track";
+}
+
+<div class="container mt-3">
+    <div class="alert alert-warning text-center">
+        <h5>Are you sure you want to delete this track?</h5>
+    </div>
+
+    <div class="card shadow-lg p-4 bg-light rounded">
+        <h4 class="text-primary">Track Details</h4>
+        <hr />
+
+        <dl class="row">
+            <dt class="col-sm-3 fw-bold">Title:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+            <dt class="col-sm-3 fw-bold">Duration:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Duration) mins</dd>
+
+            <dt class="col-sm-3 fw-bold">Price:</dt>
+            <dd class="col-sm-9">$@Html.DisplayFor(model => model.Price)</dd>
+
+            <dt class="col-sm-3 fw-bold">Album:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Album.Title)</dd>
+        </dl>
+
+        <div class="d-flex justify-content-between mt-4">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger px-4">Delete</button>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary px-4">Back to List</a>
+        </div>
+    </div>
+</div>

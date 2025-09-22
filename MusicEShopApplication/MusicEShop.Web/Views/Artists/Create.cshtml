@@ -1,0 +1,52 @@
+﻿@model MusicEShop.Domain.DomainModels.Artist
+
+@{
+    ViewData["Title"] = "Create Artist";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Create Artist</h1>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create" enctype="multipart/form-data" class="shadow p-4 rounded bg-light">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label fw-bold"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter artist name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Country" class="form-label fw-bold"></label>
+                    <input asp-for="Country" class="form-control" placeholder="Enter artist's country" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Genre" class="form-label fw-bold"></label>
+                    <input asp-for="Genre" class="form-control" placeholder="Enter artist's genre" />
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ArtistImage" class="form-label fw-bold">Upload Artist Image</label>
+                    <input type="text" name="ArtistImage" class="form-control" />
+                    <span asp-validation-for="ArtistImage" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

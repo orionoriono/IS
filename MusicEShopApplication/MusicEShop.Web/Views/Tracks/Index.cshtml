@@ -1,0 +1,81 @@
+﻿@model IEnumerable<MusicEShop.Domain.DomainModels.Track>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+
+<h3 class="mt-4">Tracks</h3>
+    
+    <div class="my-2">
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn custom-btn btn-sm" asp-action="Create">Create New Track</a>
+        }
+
+    </div>
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        var item = Model.ElementAt(i);
+        if (i % 4 == 0)
+        {
+            @:<div class="row mb-4">
+        }
+
+        <div class="col-md-3">
+            <div class="card" style="width: 100%; height: auto;">
+                <img class="card-img-top" src="@item.Album.CoverImage" alt="@item.Title" style="height: 200px; object-fit: cover;">
+                
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span class="float-start"> Genre </span>
+                                <b class="float-end">  @item.Album.Genre</b>
+                            </li>    
+
+                            <li class="list-group-item">
+                                <span class="float-start"> Release Date </span>
+                                <b class="float-end">  @item.Album.ReleaseDate?.ToString("d")</b>
+                            </li> 
+                            
+                            
+                            <li class="list-group-item">
+                                <span class="float-start"> Artist </span>
+                                <b class="float-end">  @item.Album.Artist?.Name</b>
+                            </li>    
+
+                            
+                            <li class="list-group-item">
+                                <span class="float-start"> Price </span>
+                                <b class="float-end">  $@item.Price</b>
+                            </li>    
+                        </ul>
+                </div>
+
+                <div class="card-footer">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="background-color: rebeccapurple; color: white; border: none;">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm "style="background-color: mediumvioletred; color: white; border: none;">Delete</a>
+                    }
+                    
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm" style="background-color: sandybrown; color: white; border: none;">Details</a>
+                    <a asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-md" style="background-color: forestgreen; color: white; border: none">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        if ((i + 1) % 4 == 0 || i == Model.Count() - 1)
+    {
+        @:</div> 
+    }
+    }
+
+
+   
+</div>
+

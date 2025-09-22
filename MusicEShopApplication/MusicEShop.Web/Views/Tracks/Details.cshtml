@@ -1,0 +1,51 @@
+﻿@model MusicEShop.Domain.DomainModels.Track
+
+@{
+    ViewData["Title"] = "Track Details";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="@Model.Album?.CoverImage" alt="Track Cover" class="img-fluid rounded shadow" style="max-width: 100%;">
+        </div>
+
+        <div class="col-md-8">
+            <h2 class="mb-3">@Model.Title</h2>
+            <p><strong>Duration:</strong> @Model.Duration mins</p>
+            <p><strong>Price:</strong> $@Model.Price</p>
+
+            <form asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="btn btn-danger mt-2">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h4>Appears On:</h4>
+            <div class="card shadow-sm" style="max-width: 250px;">
+                <img src="@Model.Album?.CoverImage" class="card-img-top" alt="Album Cover">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Album?.Title</h5>
+                    <p class="card-text"><strong>Artist:</strong> @Model.Album?.Artist?.Name</p>
+                    <a asp-controller="Albums" asp-action="Details" asp-route-id="@Model.Album?.Id" class="btn btn-outline-primary">
+                        View Album
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" class="btn btn-outline-secondary" asp-route-id="@Model?.Id">Edit</a>
+            }
+        </div>
+    </div>
+</div>

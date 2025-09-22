@@ -1,0 +1,30 @@
+﻿@model MusicEShop.Domain.DomainModels.CartItem
+
+<div class="container mt-4">
+    <h4 class="text-center">Add Product to Shopping Cart</h4>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="AddToCartConfirmed" class="shadow p-4 rounded bg-light">
+                <input type="hidden" asp-for="TrackId" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Quantity" value="1" class="form-label fw-bold">Quantity</label>
+                    <input asp-for="Quantity" type="number" min="1" class="form-control" placeholder="Enter quantity" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    <button type="submit" class="btn btn-primary">Add To Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

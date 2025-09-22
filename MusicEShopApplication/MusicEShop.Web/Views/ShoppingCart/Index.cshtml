@@ -1,0 +1,73 @@
+﻿@using MusicEShop.Domain
+﻿@using Microsoft.Extensions.Options
+@model MusicEShop.Domain.DTO.CartDTO
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="container mt-4">
+    @if (Model.CartItem.Any())
+    {
+        <table class="table table-hover table-bordered">
+            <thead class="table-warning text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @for (int i = 0; i < Model.CartItem.Count(); i++)
+                {
+                    var item = Model.CartItem[i];
+                    <tr class="text-center align-middle">
+                        <td>@(i + 1)</td>
+                        <td>
+                            @if (item.AlbumId != null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Album.Title)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Track.Title)
+                            }
+                        </td>
+                        <td> @((item.AlbumId != null) ? item.Album.Price : item.Track.Price) €</td>
+                        <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+                        <td>
+                            <a asp-action="DeleteFromShoppingCart"
+                               asp-controller="ShoppingCart"
+                               asp-route-itemId="@(item.AlbumId ?? item.TrackId)"
+                               class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot class="table-light">
+                <tr class="">
+                    <td colspan="4" class="text-end">Total</td>
+                    <td class="text-center"> $@Model.TotalPrice</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-center mt-3">
+            <a href="/ShoppingCart/Order" class="btn btn-danger">
+                <i class="fas fa-check-circle"></i> Confirm Order
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            <h4 class="mb-3"> Your cart is empty!</h4>
+            <p>Start adding albums and tracks to your shopping cart.</p>
+            <a href="/" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        </div>
+    }
+</div>
